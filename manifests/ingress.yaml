@@ -14,3 +14,12 @@ spec:
             name: web-log-output-app-svc
             port:
               number: 2345
+  - http:
+      paths:
+      - path: /ping-pong
+        pathType: Prefix
+        backend:
+          service:
+            name: ping-pong-app-svc
+            port:
+              number: 6789

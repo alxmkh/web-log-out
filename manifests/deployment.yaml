@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: web-log-output-app
-          image: isalxmkh/web-log-output-app:v1.01
+          image: isalxmkh/web-log-output-app:v1.02
