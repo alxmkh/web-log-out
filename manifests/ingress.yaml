@@ -11,6 +11,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: web-log-output-svc
+            name: web-log-output-app-svc
             port:
               number: 2345

@@ -6,12 +6,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: web-log-output
+      app: web-log-output-app
   template:
     metadata:
       labels:
-        app: web-log-output
+        app: web-log-output-app
     spec:
       containers:
-        - name: web-log-output
+        - name: web-log-output-app
           image: isalxmkh/web-log-output-app:v1.01
