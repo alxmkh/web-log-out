@@ -12,6 +12,13 @@ spec:
       labels:
         app: web-log-output-app
     spec:
+      volumes:
+        - name: shared-folder
+          persistentVolumeClaim:
+            claimName: cluster-share
       containers:
         - name: web-log-output-app
-          image: isalxmkh/web-log-output-app:v1.02
+          image: isalxmkh/web-log-output-app:v2.06
+          volumeMounts:
+            - name: shared-folder
+              mountPath: /usr/src/app/files/

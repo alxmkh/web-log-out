@@ -1,6 +1,6 @@
 FROM python:3.10-alpine
 
-RUN pip install pipenv
+RUN /usr/local/bin/python -m pip install --upgrade pip && pip install pipenv
 
 ENV PROJECT_DIR /usr/local/bin/src/log_output
 
@@ -12,4 +12,4 @@ RUN pipenv install --system --deploy
 
 COPY main.py .
 
-CMD ["uvicorn", "main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "3002"]
+CMD ["uvicorn", "main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "3001"]

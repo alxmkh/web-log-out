@@ -1,10 +1,13 @@
+import json
 import uuid
 from datetime import datetime
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
+import requests
+
+app = FastAPI(title='web-log-output-app')
 app.add_middleware(
     CORSMiddleware,
     allow_origins="*",
@@ -13,7 +16,31 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
+file_path = '/usr/src/app/files/timestamp.db'
 
-@app.get('/', tags=['root'])
-async def get_uuid_and_timestamp():
-    return f'{datetime.now()}: {uuid.uuid4()}'
+BASE_PING_PONG_URL: str = 'http://ping-pong-app-svc:4001/'
+
+
+@app.get('/lo-get-data-from-file', tags=['get data from ping-pong app'])
+async def get_timestamp_and_ping_pong_counter_from_file() -> str:
+    try:
+        data = f'{datetime.now()}: {uuid.uuid4()}'
+        with open(file_path, 'r', encoding='utf-8') as fr:
+            data_from_ping_pong_file = fr.read()
+        return data + ', ' + data_from_ping_pong_file
+    except Exception as err:
+        raise HTTPException(status_code=400, detail=str(err))
+
+
+@app.get('/lo-get-data-from-rest', tags=['get data from ping-pong app'])
+async def get_timestamp_and_ping_pong_counter_from_rest() -> dict:
+    try:
+
+        data_from_ping_pong_rest = requests.get(BASE_PING_PONG_URL + 'pp-get-data-from-rest')
+        result = {
+            datetime.now(): uuid.uuid4(),
+            'Ping / Pongs:': json.loads(data_from_ping_pong_rest.content.decode('utf-8'))['pong']
+        }
+        return result
+    except Exception as err:
+        raise HTTPException(status_code=400, detail=str(err))

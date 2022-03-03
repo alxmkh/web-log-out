@@ -24,7 +24,7 @@ Dockerfile
 
 # Distribution / packaging
 .Python
-env/
+settings.py/
 build/
 develop-eggs/
 dist/
@@ -71,7 +71,7 @@ docs/_build/
 target/
 
 # Virtual environment
-.env
+settings.py
 .venv/
 venv/
 

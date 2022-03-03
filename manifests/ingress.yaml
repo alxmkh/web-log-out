@@ -7,7 +7,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /
+      - path: /lo-get-data-from-file
         pathType: Prefix
         backend:
           service:
@@ -16,10 +16,10 @@ spec:
               number: 2345
   - http:
       paths:
-      - path: /ping-pong
+      - path: /lo-get-data-from-rest
         pathType: Prefix
         backend:
           service:
-            name: ping-pong-app-svc
+            name: web-log-output-app-svc
             port:
-              number: 6789
+              number: 2345
