@@ -19,7 +19,23 @@ spec:
             claimName: cluster-share
       containers:
         - name: web-log-output-app
-          image: isalxmkh/web-log-output-app:v2.06
+          image: isalxmkh/web-log-output-app:v2.07
+          env:
+            - name: BASE_PING_PONG_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: web-log-output-config-map
+                  key: url_to_ping_pong
+            - name: MOUNT
+              valueFrom:
+                configMapKeyRef:
+                  name: web-log-output-config-map
+                  key: share_path
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  key: message
+                  name: web-log-output-config-map
           volumeMounts:
             - name: shared-folder
               mountPath: /usr/src/app/files/

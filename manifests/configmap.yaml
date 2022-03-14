@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-log-output-config-map
+  namespace: practice-dwk
+data:
+  url_to_ping_pong: "http://ping-pong-app-svc:4001/"
+  share_path: "/usr/src/app/files/timestamp.db"
+  message: "Hello from config-map"
