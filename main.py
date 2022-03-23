@@ -21,10 +21,6 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-# file_path = '/usr/src/app/files/timestamp.db'
-
-# BASE_PING_PONG_URL: str = 'http://ping-pong-app-svc:4001/'
-
 
 @app.get('/lo-get-data-from-file', tags=['get data from ping-pong app'])
 async def get_timestamp_and_ping_pong_counter_from_file() -> str:
@@ -50,3 +46,12 @@ async def get_timestamp_and_ping_pong_counter_from_rest() -> dict:
         return result
     except Exception as err:
         raise HTTPException(status_code=400, detail=str(err))
+
+
+@app.get('/health-check-pp-app')
+async def get_check_pp_app():
+    result = requests.get(os.getenv("BASE_PING_PONG_URL") + 'health-app')
+    if 200 <= result.status_code <= 303:
+        return {"check_pp_app": "OK"}
+    else:
+        return {"check_pp_app": "FAIL"}

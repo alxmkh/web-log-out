@@ -19,7 +19,12 @@ spec:
             claimName: cluster-share
       containers:
         - name: web-log-output-app
-          image: isalxmkh/web-log-output-app:v2.07
+          image: isalxmkh/web-log-output-app:v2.08
+          readinessProbe:
+            initialDelaySeconds: 10
+            httpGet:
+              path: /health-check-pp-app
+              port: 5001
           env:
             - name: BASE_PING_PONG_URL
               valueFrom:

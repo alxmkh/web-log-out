@@ -12,4 +12,4 @@ RUN pipenv install --system --deploy
 
 COPY main.py .
 
-CMD ["uvicorn", "main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "3001"]
+CMD ["uvicorn", "main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "5001"]
